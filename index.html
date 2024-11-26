@@ -27,12 +27,23 @@
         <button class="action-button" onclick="showSection('explore')">Explore</button>
         <button class="action-button" onclick="showSection('host')">Host</button>
       </div>
+       <!-- Quotes Section -->
+       <div class="quotes">
+        <h2>Inspirational Weekend Quotes</h2>
+        <ul>
+          <li>"Weekends are for adventures, laughter, and memories." </li>
+          <li>"A weekend well spent brings a week of content." </li>
+          <li>"Happiness is planning a weekend with good friends." </li>
+          <li>"Relax, unwind, and reconnect with those who matter most." </li>
+        </ul>
+      </div>
+    </section>
     </section>
 
     <!-- Explore Section -->
     <section id="explore" class="hidden">
       <h2>Explore Activities</h2>
-      <div id="activity-list">
+      <div id="activity-list" class="activity-grid">
         <p>Loading activities...</p>
       </div>
     </section>
@@ -61,6 +72,9 @@
 
         <label for="extras">What to bring (Optional):</label>
         <input type="text" id="extras" placeholder="e.g., snacks, drinks">
+
+        <label for="image">Upload an Image (Optional):</label>
+        <input type="file" id="image" accept="image/*">
 
         <button type="button" onclick="createActivity()">Create Activity</button>
       </form>

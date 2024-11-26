@@ -16,13 +16,22 @@ function createActivity() {
   const invitees = document.getElementById('invitees').value;
   const timing = document.getElementById('timing').value;
   const extras = document.getElementById('extras').value.trim();
+  const imageFile = document.getElementById('image').files[0];
 
   if (!description || !timing) {
     alert('Please fill out all required fields.');
     return;
   }
 
-  const newActivity = { eventType, description, invitees, timing, extras };
+  const newActivity = {
+    eventType,
+    description,
+    invitees,
+    timing,
+    extras,
+    image: imageFile ? URL.createObjectURL(imageFile) : null,
+  };
+
   activities.push(newActivity);
   alert('Your activity has been created successfully!');
   document.getElementById('host-form').reset();
@@ -41,6 +50,7 @@ function populateActivities() {
     const activityDiv = document.createElement('div');
     activityDiv.className = 'activity-card';
     activityDiv.innerHTML = `
+      ${activity.image ? `<img src="${activity.image}" alt="Activity Image">` : ''}
       <h3>${activity.eventType}</h3>
       <p><strong>Description:</strong> ${activity.description}</p>
       <p><strong>Timing:</strong> ${activity.timing}</p>
