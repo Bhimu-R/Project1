@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Explore Activities</h1>
+<ul>
+    {% for activity in activities %}
+    <li>
+        <strong>{{ activity.type }}</strong> by {{ activity.host }}:
+        <em>{{ activity.details }}</em> at {{ activity.time }} for {{ activity.people }} people.
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+ 

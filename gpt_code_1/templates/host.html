@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Host an Activity</h1>
+<form method="post">
+    <label>Event Type:</label>
+    <select name="type">
+        <option value="Get-together">Get-together</option>
+        <option value="Movie">Movie</option>
+        <option value="Games">Games</option>
+        <option value="Ride">Ride</option>
+        <option value="Trekking">Trekking</option>
+    </select><br>
+    <label>Host Name:</label>
+    <input type="text" name="host" required><br>
+    <label>Details:</label>
+    <textarea name="details" required></textarea><br>
+    <label>Time:</label>
+    <input type="text" name="time" required><br>
+    <label>Number of People:</label>
+    <input type="number" name="people" required><br>
+    <button type="submit">Create</button>
+</form>
+{% endblock %}
+ 

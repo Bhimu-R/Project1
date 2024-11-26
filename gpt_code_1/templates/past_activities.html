@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Past Activities</h1>
+<ul>
+    {% for activity in activities %}
+    <li>
+        <strong>{{ activity.type }}</strong> hosted by {{ activity.host }}: {{ activity.details }}.
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+ 

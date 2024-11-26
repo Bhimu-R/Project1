@@ -13,7 +13,7 @@ body, h1, h2, p, ul, li, button, input, select, textarea {
   
   /* Header */
   header {
-    background: #0066cc;
+    background: #57392af5;
     color: white;
     padding: 20px 10px;
     text-align: center;
@@ -45,8 +45,19 @@ body, h1, h2, p, ul, li, button, input, select, textarea {
     padding: 20px;
     text-align: center;
   }
+  /* User Menu */
+.user-menu {
+    position: relative;
+  }
   
-  .hidden {
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+   .hidden {
     display: none;
   }
   
@@ -60,7 +71,7 @@ body, h1, h2, p, ul, li, button, input, select, textarea {
   }
   
   .action-button {
-    background: #007BFF;
+    background: #57392af5;
     color: white;
     padding: 15px 25px;
     border: none;
@@ -70,7 +81,7 @@ body, h1, h2, p, ul, li, button, input, select, textarea {
   }
   
   .action-button:hover {
-    background: #0056b3;
+    background: #dc3009;
   }
 
   /* Explore Section */
