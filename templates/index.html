@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekend Planner</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Weekend Get-Together Planner</h1>
+    <nav>
+      <ul>
+        <li><a href="#" onclick="showSection('home')">Home</a></li>
+        <li><a href="#" onclick="showSection('explore')">Explore</a></li>
+        <li><a href="#" onclick="showSection('host')">Host</a></li>
+        <li><a href="#" onclick="showSection('login')">Login</a></li>
+        <li><a href="#" onclick="showSection('past-activities')">Past Activities</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home Section -->
+    <section id="home">
+      <div class="center-options">
+        <button class="action-button" onclick="showSection('explore')">Explore</button>
+        <button class="action-button" onclick="showSection('host')">Host</button>
+      </div>
+    </section>
+
+    <!-- Explore Section -->
+    <section id="explore" class="hidden">
+      <h2>Explore Activities</h2>
+      <div id="activity-list"></div>
+    </section>
+
+    <!-- Host Section -->
+    <section id="host" class="hidden">
+      <h2>Host an Activity</h2>
+      <form id="host-form">
+        <label for="type">Event Type:</label>
+        <select id="type">
+          <option value="Get-together">Get-together</option>
+          <option value="Movie">Movie</option>
+          <option value="Games">Games</option>
+          <option value="Ride">Bike Ride</option>
+          <option value="Trekking">Trekking</option>
+        </select><br>
+
+        <label for="host-name">Host Name:</label>
+        <input type="text" id="host-name" placeholder="Your Name" required><br>
+
+        <label for="details">Details:</label>
+        <textarea id="details" placeholder="Describe your activity" required></textarea><br>
+
+        <label for="time">Time:</label>
+        <input type="text" id="time" placeholder="e.g., Saturday 6 PM" required><br>
+
+        <label for="people">Number of People:</label>
+        <input type="number" id="people" placeholder="Max Participants" required><br>
+
+        <button type="button" onclick="createActivity()">Create Activity</button>
+      </form>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="hidden">
+      <h2>User Login</h2>
+      <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username"><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password"><br>
+
+        <button type="button" onclick="login()">Login</button>
+      </form>
+    </section>
+
+    <!-- Past Activities Section -->
+    <section id="past-activities" class="hidden">
+      <h2>Past Activities</h2>
+      <div id="past-list">
+        <p>No past activities recorded yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Weekend Planner. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadActivities();
+
+      const sections = document.querySelectorAll("section");
+      window.showSection = (id) => {
+        sections.forEach(section => section.classList.toggle("hidden", section.id !== id));
+      };
+    });
+
+    function loadActivities() {
+      fetch("/activities")
+        .then(res => res.json())
+        .then(data => {
+          const activityList = document.getElementById("activity-list");
+          activityList.innerHTML = "";
+          data.forEach(activity => {
+            const div = document.createElement("div");
+            div.classList.add("activity");
+            div.innerHTML = `
+              <h3>${activity.type}</h3>
+              <p><strong>Host:</strong> ${activity.host}</p>
+              <p><strong>Details:</strong> ${activity.details}</p>
+              <p><strong>Time:</strong> ${activity.time}</p>
+              <p><strong>People:</strong> ${activity.people}</p>
+            `;
+            activityList.appendChild(div);
+          });
+        });
+    }
+
+    function createActivity() {
+      const newActivity = {
+        type: document.getElementById("type").value,
+        host: document.getElementById("host-name").value,
+        details: document.getElementById("details").value,
+        time: document.getElementById("time").value,
+        people: parseInt(document.getElementById("people").value),
+      };
+
+      fetch("/add-activity", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newActivity),
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          loadActivities();
+          showSection("explore");
+        });
+    }
+
+    function login() {
+      alert("Login functionality is not implemented yet!");
+    }
+  </script>
+</body>
+</html>
